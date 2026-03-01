@@ -1,0 +1,94 @@
+{
+  "blocks": [
+    {
+      "type": "header",
+      "text": {
+        "type": "plain_text",
+        "text": "Content Research Results",
+        "emoji": true
+      }
+    },
+    {
+      "type": "section",
+      "fields": [
+        {
+          "type": "mrkdwn",
+          "text": "*Topics Found:* 12"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*Time Range:* Last 7 days"
+        }
+      ]
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": ":large_green_circle: *OpenAI Launches GPT-5 with Real-Time Reasoning*\nRelevance: 96/100 | 14 sources\nOpenAI's latest model introduces chain-of-thought reasoning at inference time, marking a significant leap in AI capabilities. Early benchmarks show 40% improvement on complex reasoning tasks."
+      }
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": ":large_green_circle: *YC W26 Batch Signals AI Infrastructure Boom*\nRelevance: 91/100 | 9 sources\nY Combinator's Winter 2026 batch is 68% AI-focused, with a notable shift toward infrastructure and tooling over application-layer startups."
+      }
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": ":large_yellow_circle: *EU AI Act Enforcement Begins with First Fines*\nRelevance: 78/100 | 7 sources\nThe European Union has issued its first enforcement actions under the AI Act, fining two companies for non-compliance with transparency requirements."
+      }
+    },
+    {
+      "type": "context",
+      "elements": [
+        {
+          "type": "mrkdwn",
+          "text": ":newspaper: *Sources:* TechCrunch, Hacker News, ArXiv, The Verge, Wired, Reuters, Bloomberg, MIT Tech Review"
+        }
+      ]
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "_Showing top 3 of 12 topics. Full results available in thread._"
+      }
+    },
+    {
+      "type": "actions",
+      "elements": [
+        {
+          "type": "button",
+          "text": {
+            "type": "plain_text",
+            "text": "Generate Brief from These",
+            "emoji": true
+          },
+          "style": "primary",
+          "action_id": "generate_brief",
+          "value": "research_session_abc123"
+        },
+        {
+          "type": "button",
+          "text": {
+            "type": "plain_text",
+            "text": "Refine Search",
+            "emoji": true
+          },
+          "action_id": "refine_search",
+          "value": "research_session_abc123"
+        }
+      ]
+    }
+  ]
+}

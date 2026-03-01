@@ -1,0 +1,183 @@
+{
+  "competitors": [
+    {
+      "name": "Morning Brew",
+      "url": "https://www.morningbrew.com",
+      "frequency": "daily",
+      "estimatedSubscribers": 4200000,
+      "categories": ["business", "tech", "finance"],
+      "recentTopics": [
+        {
+          "title": "AI Agents Are Coming for Your Inbox",
+          "date": "2024-03-15",
+          "category": "tech",
+          "engagement": "high"
+        },
+        {
+          "title": "The Fed's Next Move: What Markets Expect",
+          "date": "2024-03-14",
+          "category": "finance",
+          "engagement": "medium"
+        },
+        {
+          "title": "Why Every CEO Is Talking About AI Governance",
+          "date": "2024-03-13",
+          "category": "business",
+          "engagement": "high"
+        },
+        {
+          "title": "Crypto ETFs: One Month Later",
+          "date": "2024-03-12",
+          "category": "finance",
+          "engagement": "medium"
+        },
+        {
+          "title": "The Return-to-Office Wars Heat Up",
+          "date": "2024-03-11",
+          "category": "business",
+          "engagement": "low"
+        }
+      ],
+      "strengths": ["brand recognition", "concise format", "strong voice"],
+      "weaknesses": ["limited depth", "US-centric", "no technical deep dives"]
+    },
+    {
+      "name": "The Hustle",
+      "url": "https://thehustle.co",
+      "frequency": "daily",
+      "estimatedSubscribers": 2500000,
+      "categories": ["startups", "tech", "business"],
+      "recentTopics": [
+        {
+          "title": "Inside the $50B AI Infrastructure Boom",
+          "date": "2024-03-15",
+          "category": "tech",
+          "engagement": "high"
+        },
+        {
+          "title": "The Side Hustle Economy in 2024",
+          "date": "2024-03-14",
+          "category": "business",
+          "engagement": "high"
+        },
+        {
+          "title": "Why VCs Are Betting Big on Climate Tech",
+          "date": "2024-03-13",
+          "category": "startups",
+          "engagement": "medium"
+        },
+        {
+          "title": "The TikTok Ban: What Happens Next",
+          "date": "2024-03-12",
+          "category": "tech",
+          "engagement": "high"
+        },
+        {
+          "title": "How This Founder Built a $100M ARR Company in 3 Years",
+          "date": "2024-03-11",
+          "category": "startups",
+          "engagement": "medium"
+        }
+      ],
+      "strengths": ["storytelling", "founder audience", "data-driven"],
+      "weaknesses": ["inconsistent schedule", "heavy HubSpot integration", "ad-heavy"]
+    },
+    {
+      "name": "TLDR",
+      "url": "https://tldr.tech",
+      "frequency": "daily",
+      "estimatedSubscribers": 1250000,
+      "categories": ["tech", "AI", "startups", "crypto", "design"],
+      "recentTopics": [
+        {
+          "title": "Claude 3.5 Sonnet Benchmarks Deep Dive",
+          "date": "2024-03-15",
+          "category": "AI",
+          "engagement": "high"
+        },
+        {
+          "title": "Rust in Production: Lessons from Discord",
+          "date": "2024-03-14",
+          "category": "tech",
+          "engagement": "medium"
+        },
+        {
+          "title": "The State of WebAssembly in 2024",
+          "date": "2024-03-13",
+          "category": "tech",
+          "engagement": "medium"
+        },
+        {
+          "title": "Figma's AI Features: Designer Reactions",
+          "date": "2024-03-12",
+          "category": "design",
+          "engagement": "high"
+        },
+        {
+          "title": "Bitcoin Layer 2s Are Having a Moment",
+          "date": "2024-03-11",
+          "category": "crypto",
+          "engagement": "low"
+        }
+      ],
+      "strengths": ["technical depth", "multiple verticals", "curated links"],
+      "weaknesses": ["low original content", "link-heavy format", "growing too fast"]
+    },
+    {
+      "name": "Stratechery",
+      "url": "https://stratechery.com",
+      "frequency": "3x weekly",
+      "estimatedSubscribers": 50000,
+      "categories": ["tech strategy", "business analysis"],
+      "recentTopics": [
+        {
+          "title": "Apple's AI Strategy: The Integration Advantage",
+          "date": "2024-03-14",
+          "category": "tech strategy",
+          "engagement": "high"
+        },
+        {
+          "title": "The End of the Social Media Era",
+          "date": "2024-03-12",
+          "category": "tech strategy",
+          "engagement": "high"
+        },
+        {
+          "title": "Microsoft's Copilot Bet: Early Returns",
+          "date": "2024-03-10",
+          "category": "business analysis",
+          "engagement": "high"
+        }
+      ],
+      "strengths": ["deep analysis", "consistent quality", "premium positioning"],
+      "weaknesses": ["low frequency", "expensive", "single author risk"]
+    }
+  ],
+  "analysisDate": "2024-03-15",
+  "coverageGaps": [
+    {
+      "topic": "AI governance and regulation",
+      "coveredBy": ["Morning Brew"],
+      "notCoveredBy": ["The Hustle", "TLDR"],
+      "opportunityScore": 85
+    },
+    {
+      "topic": "Developer tooling trends",
+      "coveredBy": ["TLDR"],
+      "notCoveredBy": ["Morning Brew", "The Hustle"],
+      "opportunityScore": 72
+    },
+    {
+      "topic": "Climate tech investment",
+      "coveredBy": ["The Hustle"],
+      "notCoveredBy": ["Morning Brew", "TLDR", "Stratechery"],
+      "opportunityScore": 68
+    },
+    {
+      "topic": "Enterprise AI adoption case studies",
+      "coveredBy": [],
+      "notCoveredBy": ["Morning Brew", "The Hustle", "TLDR", "Stratechery"],
+      "opportunityScore": 91
+    }
+  ]
+}

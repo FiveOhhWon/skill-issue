@@ -1,0 +1,173 @@
+{
+  "sponsors": [
+    {
+      "name": "Datadog",
+      "industry": "DevOps / Observability",
+      "website": "https://www.datadoghq.com",
+      "contactEmail": "partnerships@datadoghq.com",
+      "audienceFit": {
+        "score": 92,
+        "reasoning": "Strong overlap with tech/developer audience. Monitoring and observability tools are directly relevant to newsletter readers building production systems."
+      },
+      "sponsorshipHistory": [
+        {
+          "date": "2024-01-15",
+          "type": "primary",
+          "edition": "TLDR Tech #1210",
+          "cpm": 45.00,
+          "impressions": 125000,
+          "clicks": 3750,
+          "ctr": 0.03
+        },
+        {
+          "date": "2024-02-12",
+          "type": "primary",
+          "edition": "TLDR Tech #1230",
+          "cpm": 47.50,
+          "impressions": 130000,
+          "clicks": 4160,
+          "ctr": 0.032
+        }
+      ],
+      "budget": {
+        "quarterly": 150000,
+        "preferred_tier": "Premium"
+      },
+      "hubspotDealId": "deal_dd_2024_q1",
+      "notes": "Interested in exclusive placements. Has budget for custom content integrations."
+    },
+    {
+      "name": "Linear",
+      "industry": "Project Management",
+      "website": "https://linear.app",
+      "contactEmail": "marketing@linear.app",
+      "audienceFit": {
+        "score": 88,
+        "reasoning": "Popular among engineering teams and technical managers. High brand affinity with developer audience."
+      },
+      "sponsorshipHistory": [
+        {
+          "date": "2024-02-05",
+          "type": "secondary",
+          "edition": "TLDR Tech #1225",
+          "cpm": 35.00,
+          "impressions": 125000,
+          "clicks": 2500,
+          "ctr": 0.02
+        }
+      ],
+      "budget": {
+        "quarterly": 75000,
+        "preferred_tier": "Standard"
+      },
+      "hubspotDealId": "deal_lin_2024_q1",
+      "notes": "First-time sponsor. Wants to test with standard tier before upgrading."
+    },
+    {
+      "name": "Vercel",
+      "industry": "Cloud Platform / Frontend",
+      "website": "https://vercel.com",
+      "contactEmail": "sponsors@vercel.com",
+      "audienceFit": {
+        "score": 95,
+        "reasoning": "Next.js and frontend deployment platform. Extremely high relevance to tech newsletter audience. Strong developer brand."
+      },
+      "sponsorshipHistory": [
+        {
+          "date": "2024-01-08",
+          "type": "exclusive",
+          "edition": "TLDR Tech #1205",
+          "cpm": 65.00,
+          "impressions": 125000,
+          "clicks": 5625,
+          "ctr": 0.045
+        },
+        {
+          "date": "2024-02-19",
+          "type": "primary",
+          "edition": "TLDR Tech #1235",
+          "cpm": 48.00,
+          "impressions": 132000,
+          "clicks": 4620,
+          "ctr": 0.035
+        },
+        {
+          "date": "2024-03-11",
+          "type": "primary",
+          "edition": "TLDR Tech #1245",
+          "cpm": 50.00,
+          "impressions": 135000,
+          "clicks": 4725,
+          "ctr": 0.035
+        }
+      ],
+      "budget": {
+        "quarterly": 200000,
+        "preferred_tier": "Exclusive"
+      },
+      "hubspotDealId": "deal_vc_2024_q1",
+      "notes": "Long-term partner. Interested in quarterly exclusive deals with custom landing pages."
+    },
+    {
+      "name": "Notion",
+      "industry": "Productivity / Collaboration",
+      "website": "https://www.notion.so",
+      "contactEmail": "partnerships@makenotion.com",
+      "audienceFit": {
+        "score": 82,
+        "reasoning": "Broad appeal across tech workers. Good fit for productivity-focused content but less technical than core developer tools."
+      },
+      "sponsorshipHistory": [
+        {
+          "date": "2024-03-04",
+          "type": "secondary",
+          "edition": "TLDR Tech #1242",
+          "cpm": 38.00,
+          "impressions": 130000,
+          "clicks": 3120,
+          "ctr": 0.024
+        }
+      ],
+      "budget": {
+        "quarterly": 100000,
+        "preferred_tier": "Premium"
+      },
+      "hubspotDealId": "deal_not_2024_q1",
+      "notes": "Wants to promote Notion AI features. Interested in AI-focused editions."
+    },
+    {
+      "name": "Supabase",
+      "industry": "Database / Backend-as-a-Service",
+      "website": "https://supabase.com",
+      "contactEmail": "sponsors@supabase.com",
+      "audienceFit": {
+        "score": 90,
+        "reasoning": "Open-source Firebase alternative. Very strong fit with developer audience. Growing brand in indie hacker and startup communities."
+      },
+      "sponsorshipHistory": [],
+      "budget": {
+        "quarterly": 50000,
+        "preferred_tier": "Standard"
+      },
+      "hubspotDealId": null,
+      "notes": "New prospect. Expressed interest via inbound. Schedule intro call."
+    }
+  ],
+  "cpmTiers": {
+    "Standard": {
+      "cpmRange": [30, 40],
+      "placement": "Secondary slot (bottom of edition)",
+      "includes": ["150-word ad copy", "1 link", "logo"]
+    },
+    "Premium": {
+      "cpmRange": [40, 55],
+      "placement": "Primary slot (top of edition)",
+      "includes": ["250-word ad copy", "2 links", "logo", "CTA button"]
+    },
+    "Exclusive": {
+      "cpmRange": [55, 75],
+      "placement": "Full edition sponsorship",
+      "includes": ["Custom content section", "3 links", "logo", "CTA button", "dedicated subject line mention"]
+    }
+  }
+}

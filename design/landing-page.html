@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>skill-issue — Composable AI Skills for Newsletter Operations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================
+       DESIGN TOKENS
+       ============================================ */
+    :root {
+      /* Colors — Dark Theme */
+      --bg-primary: #0A0A0F;
+      --bg-secondary: #12121A;
+      --bg-card: #16161F;
+      --bg-card-hover: #1C1C28;
+      --bg-code: #0D0D14;
+
+      --text-primary: #F0F0F5;
+      --text-secondary: #9494A8;
+      --text-muted: #5C5C72;
+
+      --accent-primary: #7C5CFC;
+      --accent-primary-light: #9B7FFF;
+      --accent-secondary: #22D3EE;
+      --accent-tertiary: #34D399;
+      --accent-warning: #FBBF24;
+      --accent-rose: #F472B6;
+
+      --gradient-hero: linear-gradient(135deg, #7C5CFC 0%, #22D3EE 50%, #34D399 100%);
+      --gradient-card-border: linear-gradient(135deg, rgba(124,92,252,0.3), rgba(34,211,238,0.1));
+      --gradient-accent-text: linear-gradient(135deg, #7C5CFC, #22D3EE);
+
+      --border-subtle: #1E1E2A;
+      --border-card: #24243A;
+
+      /* Typography */
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+      /* Spacing */
+      --section-gap: 120px;
+      --card-radius: 16px;
+      --btn-radius: 10px;
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: var(--section-gap) 0;
+    }
+
+    /* ============================================
+       NAV
+       ============================================ */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 16px 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-brand .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--gradient-hero);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--bg-primary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ============================================
+       BUTTONS
+       ============================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: var(--btn-radius);
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent-primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-primary-light);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(124, 92, 252, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border-card);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-primary);
+      background: rgba(124, 92, 252, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-sm {
+      padding: 8px 16px;
+      font-size: 13px;
+    }
+
+    /* ============================================
+       HERO SECTION
+       ============================================ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at 50% 30%, rgba(124,92,252,0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 30% 70%, rgba(34,211,238,0.05) 0%, transparent 50%),
+                  radial-gradient(ellipse at 70% 50%, rgba(52,211,153,0.04) 0%, transparent 50%);
+      animation: heroGlow 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes heroGlow {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(-2%, 2%) rotate(1deg); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 840px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: 1px solid var(--border-card);
+      background: var(--bg-card);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-tertiary);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero h1 {
+      font-size: 72px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin-bottom: 8px;
+    }
+
+    .hero h1 .gradient-text {
+      background: var(--gradient-hero);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero .tagline {
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .hero .subtitle {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .hero-visual {
+      margin-top: 80px;
+      position: relative;
+    }
+
+    .terminal-window {
+      background: var(--bg-code);
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      overflow: hidden;
+      text-align: left;
+      max-width: 680px;
+      margin: 0 auto;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+    }
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .terminal-dot.red { background: #FF5F57; }
+    .terminal-dot.yellow { background: #FEBC2E; }
+    .terminal-dot.green { background: #28C840; }
+
+    .terminal-bar span {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-left: 8px;
+      font-family: var(--font-mono);
+    }
+
+    .terminal-body {
+      padding: 20px 24px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .terminal-body .prompt {
+      color: var(--accent-tertiary);
+    }
+
+    .terminal-body .command {
+      color: var(--text-primary);
+    }
+
+    .terminal-body .comment {
+      color: var(--text-muted);
+    }
+
+    .terminal-body .output {
+      color: var(--accent-secondary);
+    }
+
+    .terminal-body .flag {
+      color: var(--accent-primary-light);
+    }
+
+    /* ============================================
+       SECTION HEADERS
+       ============================================ */
+    .section-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 64px;
+    }
+
+    .section-header .overline {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-primary);
+      margin-bottom: 16px;
+    }
+
+    .section-header h2 {
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .section-header p {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       ARCHITECTURE SECTION
+       ============================================ */
+    .architecture {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .arch-diagram {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .surface-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .surface-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--card-radius);
+      padding: 28px;
+      transition: all 0.3s ease;
+    }
+
+    .surface-card:hover {
+      border-color: var(--accent-primary);
+      background: var(--bg-card-hover);
+      transform: translateX(-4px);
+    }
+
+    .surface-card .surface-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+
+    .surface-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .surface-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .surface-card.claude .surface-icon { background: rgba(124,92,252,0.15); }
+    .surface-card.slack .surface-icon { background: rgba(34,211,238,0.15); }
+    .surface-card.cli .surface-icon { background: rgba(52,211,153,0.15); }
+
+    .connector-visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .connector-line {
+      width: 2px;
+      height: 40px;
+      background: var(--gradient-hero);
+      opacity: 0.4;
+    }
+
+    .connector-node {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-primary);
+      background: rgba(124, 92, 252, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      animation: nodePulse 3s ease-in-out infinite;
+    }
+
+    @keyframes nodePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(124,92,252,0.3); }
+      50% { box-shadow: 0 0 0 12px rgba(124,92,252,0); }
+    }
+
+    .skill-library {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--card-radius);
+      padding: 36px;
+      text-align: center;
+    }
+
+    .skill-library h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .skill-library p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .skill-chip {
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      border: 1px solid var(--border-card);
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      transition: all 0.2s;
+    }
+
+    .skill-chip:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary-light);
+    }
+
+    /* ============================================
+       PIPELINES SECTION
+       ============================================ */
+    .pipelines-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .pipeline-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--card-radius);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .pipeline-card:hover {
+      border-color: var(--accent-primary);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+    }
+
+    .pipeline-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .pipeline-card.content::before { background: var(--gradient-hero); }
+    .pipeline-card.sponsor::before { background: linear-gradient(90deg, var(--accent-warning), var(--accent-rose)); }
+    .pipeline-card.reporting::before { background: linear-gradient(90deg, var(--accent-secondary), var(--accent-tertiary)); }
+
+    .pipeline-card .pipeline-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+
+    .pipeline-card.content .pipeline-label { color: var(--accent-primary-light); }
+    .pipeline-card.sponsor .pipeline-label { color: var(--accent-warning); }
+    .pipeline-card.reporting .pipeline-label { color: var(--accent-secondary); }
+
+    .pipeline-card h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .pipeline-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .pipeline-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+    }
+
+    .step-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .pipeline-card.content .step-dot { background: var(--accent-primary); }
+    .pipeline-card.sponsor .step-dot { background: var(--accent-warning); }
+    .pipeline-card.reporting .step-dot { background: var(--accent-secondary); }
+
+    .step-connector {
+      width: 2px;
+      height: 16px;
+      margin-left: 4px;
+      opacity: 0.3;
+    }
+
+    .pipeline-card.content .step-connector { background: var(--accent-primary); }
+    .pipeline-card.sponsor .step-connector { background: var(--accent-warning); }
+    .pipeline-card.reporting .step-connector { background: var(--accent-secondary); }
+
+    .step-info {
+      flex: 1;
+    }
+
+    .step-info .step-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .step-info .step-output {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .step-arrow {
+      display: flex;
+      justify-content: center;
+      padding: 4px 0;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* ============================================
+       FEATURES GRID
+       ============================================ */
+    .features {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--card-radius);
+      padding: 32px;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      border-color: var(--accent-primary);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .feature-card:nth-child(1) .feature-icon { background: rgba(124,92,252,0.12); }
+    .feature-card:nth-child(2) .feature-icon { background: rgba(34,211,238,0.12); }
+    .feature-card:nth-child(3) .feature-icon { background: rgba(52,211,153,0.12); }
+    .feature-card:nth-child(4) .feature-icon { background: rgba(251,191,36,0.12); }
+    .feature-card:nth-child(5) .feature-icon { background: rgba(244,114,182,0.12); }
+    .feature-card:nth-child(6) .feature-icon { background: rgba(96,165,250,0.12); }
+
+    .feature-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ============================================
+       GETTING STARTED
+       ============================================ */
+    .getting-started .gs-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 20px;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: rgba(124,92,252,0.12);
+      border: 1px solid rgba(124,92,252,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--accent-primary-light);
+      flex-shrink: 0;
+    }
+
+    .step-content h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .step-content p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .code-block {
+      background: var(--bg-code);
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .code-header span {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .code-body {
+      padding: 20px 24px;
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      line-height: 2;
+      overflow-x: auto;
+    }
+
+    .code-body .line-comment {
+      color: var(--text-muted);
+    }
+
+    .code-body .line-prompt {
+      color: var(--accent-tertiary);
+    }
+
+    .code-body .line-cmd {
+      color: var(--text-primary);
+    }
+
+    .code-body .line-flag {
+      color: var(--accent-primary-light);
+    }
+
+    .code-body .line-string {
+      color: var(--accent-warning);
+    }
+
+    .code-body .line-output {
+      color: var(--accent-secondary);
+    }
+
+    /* ============================================
+       TECH STACK
+       ============================================ */
+    .tech-stack {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .stack-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .stack-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      transition: all 0.2s;
+    }
+
+    .stack-badge:hover {
+      border-color: var(--accent-primary);
+      color: var(--text-primary);
+      transform: translateY(-2px);
+    }
+
+    .stack-badge .badge-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .stack-badge:nth-child(1) .badge-icon { background: rgba(96,165,250,0.15); color: #60A5FA; }
+    .stack-badge:nth-child(2) .badge-icon { background: rgba(124,92,252,0.15); color: var(--accent-primary-light); }
+    .stack-badge:nth-child(3) .badge-icon { background: rgba(52,211,153,0.15); color: var(--accent-tertiary); }
+    .stack-badge:nth-child(4) .badge-icon { background: rgba(244,114,182,0.15); color: var(--accent-rose); }
+    .stack-badge:nth-child(5) .badge-icon { background: rgba(251,191,36,0.15); color: var(--accent-warning); }
+    .stack-badge:nth-child(6) .badge-icon { background: rgba(34,211,238,0.15); color: var(--accent-secondary); }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    footer {
+      padding: 48px 0;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-brand {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .footer-brand strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 14px;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .footer-links .separator {
+      width: 1px;
+      height: 16px;
+      background: var(--border-card);
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 1024px) {
+      .hero h1 { font-size: 56px; }
+      .section-header h2 { font-size: 36px; }
+      .arch-diagram { grid-template-columns: 1fr; gap: 24px; }
+      .connector-visual { flex-direction: row; }
+      .connector-line { width: 40px; height: 2px; }
+      .pipelines-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .getting-started .gs-layout { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --section-gap: 80px; }
+      .hero h1 { font-size: 40px; }
+      .hero .tagline { font-size: 18px; }
+      .hero .subtitle { font-size: 15px; }
+      .section-header h2 { font-size: 30px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hero-actions { flex-direction: column; }
+      .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
+      .stack-badges { gap: 10px; }
+      .stack-badge { padding: 10px 16px; font-size: 13px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 32px; }
+      .container { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================
+       NAVIGATION
+       ============================================ -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="#" class="nav-brand">
+        <div class="logo-icon">si</div>
+        skill-issue
+      </a>
+      <ul class="nav-links">
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#pipelines">Pipelines</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#getting-started">Get Started</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="#" class="btn btn-secondary btn-sm">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+        <a href="#" class="btn btn-primary btn-sm">Read the Docs</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================
+       HERO SECTION
+       ============================================ -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Open Source &middot; agentskills.io Standard
+      </div>
+      <h1><span class="gradient-text">skill-issue</span></h1>
+      <p class="tagline">Composable AI Skills for Newsletter Operations</p>
+      <p class="subtitle">Build, compose, and deploy AI-powered workflows for content, analytics, and monetization &mdash; from Claude Code, Slack, or CLI.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          View on GitHub
+        </a>
+        <a href="#" class="btn btn-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          Read the Docs
+        </a>
+      </div>
+
+      <div class="hero-visual">
+        <div class="terminal-window">
+          <div class="terminal-bar">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+            <span>skill-issue &mdash; claude code</span>
+          </div>
+          <div class="terminal-body">
+            <div><span class="comment"># Run the full content pipeline</span></div>
+            <div><span class="prompt">$ </span><span class="command">claude </span><span class="flag">--plugin</span><span class="command"> ./plugin</span></div>
+            <div><span class="prompt">&gt; </span><span class="command">/daily-brief </span><span class="flag">--topic</span><span class="command"> "AI agents"</span></div>
+            <div><span class="output">  Researching trending topics...</span></div>
+            <div><span class="output">  Analyzing competitor coverage...</span></div>
+            <div><span class="output">  Generating editorial brief...</span></div>
+            <div><span class="output">  Brief ready (5 stories, 12 sources)</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       ARCHITECTURE SECTION
+       ============================================ -->
+  <section class="architecture" id="architecture">
+    <div class="container">
+      <div class="section-header">
+        <p class="overline">Architecture</p>
+        <h2>Three Surfaces, One Skill Library</h2>
+        <p>Every skill works identically whether invoked from Claude Code, Slack, or the CLI. One shared library, three access patterns.</p>
+      </div>
+
+      <div class="arch-diagram">
+        <!-- Left: Surface Cards -->
+        <div class="surface-cards">
+          <div class="surface-card claude">
+            <div class="surface-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7C5CFC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            </div>
+            <h3>Claude Code</h3>
+            <p>Power users invoke skills as plugin commands. Full pipeline orchestration with typed outputs, agents, and subagents.</p>
+          </div>
+          <div class="surface-card slack">
+            <div class="surface-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            </div>
+            <h3>Slack Bot</h3>
+            <p>Non-technical users compose skills through natural language. Streaming responses, progress indicators, and threaded conversations.</p>
+          </div>
+          <div class="surface-card cli">
+            <div class="surface-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+            </div>
+            <h3>CLI Skillkit</h3>
+            <p>Generate new agentskills.io-compliant skills from natural language descriptions. Validate, test, and deploy in one command.</p>
+          </div>
+        </div>
+
+        <!-- Center: Connector -->
+        <div class="connector-visual">
+          <div class="connector-line"></div>
+          <div class="connector-node">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"></path></svg>
+          </div>
+          <div class="connector-line"></div>
+        </div>
+
+        <!-- Right: Skill Library -->
+        <div class="skill-library">
+          <h3>Skill Library</h3>
+          <p>agentskills.io-compliant skills with typed I/O contracts</p>
+          <div class="skill-chips">
+            <span class="skill-chip">content-research</span>
+            <span class="skill-chip">competitor-analysis</span>
+            <span class="skill-chip">content-brief</span>
+            <span class="skill-chip">newsletter-analytics</span>
+            <span class="skill-chip">sponsor-proposals</span>
+            <span class="skill-chip">performance-reports</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       PIPELINES SECTION
+       ============================================ -->
+  <section class="pipelines" id="pipelines">
+    <div class="container">
+      <div class="section-header">
+        <p class="overline">Composition</p>
+        <h2>Skills That Compose Automatically</h2>
+        <p>Skills chain via typed contracts. The orchestrator reads one skill's output and feeds it as context to the next.</p>
+      </div>
+
+      <div class="pipelines-grid">
+        <!-- Content Pipeline -->
+        <div class="pipeline-card content">
+          <span class="pipeline-label">Content Pipeline</span>
+          <h3>Research to Brief</h3>
+          <div class="pipeline-flow">
+            <div class="pipeline-step">
+              <div class="step-dot"></div>
+              <div class="step-info">
+                <div class="step-name">Content Research</div>
+                <div class="step-output">JSON &rarr; ContentResearchOutput</div>
+              </div>
+            </div>
+            <div class="step-arrow">&darr;</div>
+            <div class="pipeline-step">
+              <div class="step-dot"></div>
+              <div class="step-info">
+                <div class="step-name">Competitor Analysis</div>
+                <div class="step-output">JSON &rarr; CompetitorAnalysisOutput</div>
+              </div>
+            </div>
+            <div class="step-arrow">&darr;</div>
+            <div class="pipeline-step">
+              <div class="step-dot"></div>
+              <div class="step-info">
+                <div class="step-name">Content Brief</div>
+                <div class="step-output">Markdown &rarr; ContentBriefOutput</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sponsor Pipeline -->
+        <div class="pipeline-card sponsor">
+          <span class="pipeline-label">Sponsor Pipeline</span>
+          <h3>Analytics to CRM</h3>
+          <div class="pipeline-flow">
+            <div class="pipeline-step">
+              <div class="step-dot"></div>
+              <div class="step-info">
+                <div class="step-name">Newsletter Analytics</div>
+                <div class="step-output">JSON &rarr; AnalyticsOutput</div>
+              </div>
+            </div>
+            <div class="step-arrow">&darr;</div>
+            <div class="pipeline-step">
+              <div class="step-dot"></div>
+              <div class="step-info">
+                <div class="step-name">Sponsor Proposals</div>
+                <div class="step-output">JSON &rarr; SponsorProposalOutput</div>
+              </div>
+            </div>
+            <div class="step-arrow">&darr;</div>
+            <div class="pipeline-step">
+              <div class="step-dot"></div>
+              <div class="step-info">
+                <div class="step-name">HubSpot CRM</div>
+                <div class="step-output">Deals, Notes, Contacts</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reporting Pipeline -->
+        <div class="pipeline-card reporting">
+          <span class="pipeline-label">Reporting Pipeline</span>
+          <h3>Analytics to Reports</h3>
+          <div class="pipeline-flow">
+            <div class="pipeline-step">
+              <div class="step-dot"></div>
+              <div class="step-info">
+                <div class="step-name">Newsletter Analytics</div>
+                <div class="step-output">JSON &rarr; AnalyticsOutput</div>
+              </div>
+            </div>
+            <div class="step-arrow">&darr;</div>
+            <div class="pipeline-step">
+              <div class="step-dot"></div>
+              <div class="step-info">
+                <div class="step-name">Performance Reports</div>
+                <div class="step-output">Markdown &rarr; PerformanceReportOutput</div>
+              </div>
+            </div>
+            <div class="step-arrow">&darr;</div>
+            <div class="pipeline-step">
+              <div class="step-dot"></div>
+              <div class="step-info">
+                <div class="step-name">Stakeholder Delivery</div>
+                <div class="step-output">Weekly, Monthly, Quarterly</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FEATURES SECTION
+       ============================================ -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <p class="overline">Capabilities</p>
+        <h2>Built for Real Operations</h2>
+        <p>Every feature designed for production newsletter workflows, not toy demos.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7C5CFC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+          </div>
+          <h3>agentskills.io Standard</h3>
+          <p>Open, cross-platform skill format. SKILL.md with YAML frontmatter. Works with any AI agent runtime that supports the standard.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="18" r="3"></circle><line x1="6" y1="9" x2="6" y2="15"></line><path d="M6 6h6a6 6 0 0 1 6 6v6"></path></svg>
+          </div>
+          <h3>Composable Pipelines</h3>
+          <p>Skills chain via typed contracts. Outputs from one skill flow automatically as inputs to the next through prompt-driven orchestration.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          </div>
+          <h3>Slack Integration</h3>
+          <p>Non-technical users access the full skill library via natural language. Streaming responses, progress indicators, and session continuity.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <h3>HubSpot CRM</h3>
+          <p>End-to-end business operations. Sponsor proposals automatically create deals, log notes, and update contacts in HubSpot via MCP.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F472B6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          </div>
+          <h3>Skillkit</h3>
+          <p>Generate new skills from plain English. The multi-agent CLI plans, writes, and validates agentskills.io-compliant skills automatically.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          </div>
+          <h3>TypeScript Throughout</h3>
+          <p>Full type safety, zero Python. Zod schemas validate at application boundaries. TypeScript handles analytics, orchestration, and all compute.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       GETTING STARTED
+       ============================================ -->
+  <section class="getting-started" id="getting-started">
+    <div class="container">
+      <div class="section-header">
+        <p class="overline">Quickstart</p>
+        <h2>Up and Running in Minutes</h2>
+        <p>Clone, install, and start composing skills in three steps.</p>
+      </div>
+
+      <div class="gs-layout">
+        <!-- Steps -->
+        <div class="steps-list">
+          <div class="step-item">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>Clone &amp; Install</h3>
+              <p>Clone the monorepo and install all workspace dependencies with a single command. TypeScript builds automatically.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>Load the Plugin</h3>
+              <p>Open Claude Code with the plugin flag. All six skills and three pipeline commands are available immediately.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>Run a Pipeline</h3>
+              <p>Invoke a command to run a full pipeline. Skills compose automatically, each feeding typed output to the next.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Code Block -->
+        <div class="code-block">
+          <div class="code-header">
+            <span>terminal</span>
+            <span>bash</span>
+          </div>
+          <div class="code-body">
+            <div><span class="line-comment"># Step 1: Clone & install</span></div>
+            <div><span class="line-prompt">$ </span><span class="line-cmd">git clone https://github.com/levi/skill-issue.git</span></div>
+            <div><span class="line-prompt">$ </span><span class="line-cmd">cd skill-issue && npm install</span></div>
+            <div>&nbsp;</div>
+            <div><span class="line-comment"># Step 2: Load the plugin in Claude Code</span></div>
+            <div><span class="line-prompt">$ </span><span class="line-cmd">claude </span><span class="line-flag">--plugin</span><span class="line-cmd"> ./plugin</span></div>
+            <div>&nbsp;</div>
+            <div><span class="line-comment"># Step 3: Run a pipeline</span></div>
+            <div><span class="line-prompt">&gt; </span><span class="line-cmd">/daily-brief </span><span class="line-flag">--topic</span><span class="line-string"> "AI agents"</span></div>
+            <div><span class="line-output">  Researching... Analyzing... Generating...</span></div>
+            <div><span class="line-output">  Brief complete (5 stories, 12 sources)</span></div>
+            <div>&nbsp;</div>
+            <div><span class="line-comment"># Or generate a new skill</span></div>
+            <div><span class="line-prompt">$ </span><span class="line-cmd">npx skillkit </span><span class="line-flag">--describe</span><span class="line-string"> "Track podcast mentions"</span><span class="line-flag"> --name</span><span class="line-string"> podcast-tracker</span></div>
+            <div><span class="line-output">  Planning... Writing... Validating...</span></div>
+            <div><span class="line-output">  Skill created at skills/podcast-tracker/SKILL.md</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       TECH STACK
+       ============================================ -->
+  <section class="tech-stack" id="tech-stack">
+    <div class="container">
+      <div class="section-header">
+        <p class="overline">Stack</p>
+        <h2>Modern TypeScript, End to End</h2>
+        <p>Built on proven tools with zero Python dependencies.</p>
+      </div>
+
+      <div class="stack-badges">
+        <div class="stack-badge">
+          <div class="badge-icon">TS</div>
+          TypeScript
+        </div>
+        <div class="stack-badge">
+          <div class="badge-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"></path></svg>
+          </div>
+          Agent SDK
+        </div>
+        <div class="stack-badge">
+          <div class="badge-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          </div>
+          Slack Bolt
+        </div>
+        <div class="stack-badge">
+          <div class="badge-icon">Z</div>
+          Zod
+        </div>
+        <div class="stack-badge">
+          <div class="badge-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          HubSpot
+        </div>
+        <div class="stack-badge">
+          <div class="badge-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+          </div>
+          agentskills.io
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        Built by <strong>Levi</strong> &mdash; Applied AI Engineering Portfolio
+      </div>
+      <ul class="footer-links">
+        <li><a href="#">MIT License</a></li>
+        <li><div class="separator"></div></li>
+        <li><a href="#">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -3px; margin-right: 4px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a></li>
+        <li><div class="separator"></div></li>
+        <li><a href="#">Docs</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>

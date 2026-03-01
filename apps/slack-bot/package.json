@@ -1,0 +1,24 @@
+{
+  "name": "@skill-issue/slack-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Slack bot for skill-issue newsletter operations",
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsup",
+    "start": "node --env-file=../../.env dist/main.js",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.2.62",
+    "@skill-issue/shared": "*",
+    "@slack/bolt": "^4.1.0",
+    "@slack/web-api": "^7.8.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.2.0",
+    "typescript": "^5.5.0"
+  }
+}

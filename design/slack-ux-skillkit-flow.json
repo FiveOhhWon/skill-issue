@@ -1,0 +1,154 @@
+[
+  {
+    "_step": "Step 1: User Request",
+    "_description": "The user sends a message to the bot requesting skill creation",
+    "blocks": [
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": "<@U_BOT_ID> create a skill that tracks newsletter influence across social media platforms"
+        }
+      }
+    ]
+  },
+  {
+    "_step": "Step 2: Bot Thinking (Initial Response)",
+    "_description": "Bot posts initial thinking message. This message will be updated in-place via chat.update.",
+    "blocks": [
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": ":gear: *Designing skill structure...*"
+        }
+      },
+      {
+        "type": "context",
+        "elements": [
+          {
+            "type": "mrkdwn",
+            "text": ":hourglass_flowing_sand: Planning | :white_circle: Writing | :white_circle: Reviewing"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_step": "Step 3: Bot Progress (chat.update replaces Step 2)",
+    "_description": "Bot updates the same message to show progress. Each status update uses chat.update on the original message ts.",
+    "blocks": [
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": ":gear: *Writing skill definition...*"
+        }
+      },
+      {
+        "type": "context",
+        "elements": [
+          {
+            "type": "mrkdwn",
+            "text": ":white_check_mark: Planning | :hourglass_flowing_sand: Writing | :white_circle: Reviewing"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_step": "Step 3b: Bot Progress - Review Phase (chat.update replaces Step 3)",
+    "_description": "Final progress state before completion.",
+    "blocks": [
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": ":gear: *Validating agentskills.io compliance...*"
+        }
+      },
+      {
+        "type": "context",
+        "elements": [
+          {
+            "type": "mrkdwn",
+            "text": ":white_check_mark: Planning | :white_check_mark: Writing | :hourglass_flowing_sand: Reviewing"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_step": "Step 4: Bot Result (chat.update replaces progress with final output)",
+    "_description": "Final output replaces the progress message entirely. This is the completed skill creation result.",
+    "blocks": [
+      {
+        "type": "header",
+        "text": {
+          "type": "plain_text",
+          "text": "New Skill Created: influence-tracker",
+          "emoji": true
+        }
+      },
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": "*Description:* Tracks newsletter content mentions, shares, and discussions across Twitter/X, LinkedIn, Hacker News, and Reddit. Computes an influence score based on reach, engagement velocity, and sentiment.\n\n*Tools Used:* WebSearch, WebFetch\n*Composable With:* content-research, newsletter-analytics, performance-reports"
+        }
+      },
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": "*Generated SKILL.md Preview:*\n```\n---\nname: influence-tracker\nversion: 1.0.0\ndescription: Track newsletter influence across social platforms\ntools:\n  - WebSearch\n  - WebFetch\ninput_schema:\n  newsletter_name: string\n  time_window: string\n  platforms: string[]\noutput_schema:\n  influence_score: number\n  mentions: object[]\n  sentiment: object\n  top_amplifiers: object[]\n---\n```"
+        }
+      },
+      {
+        "type": "context",
+        "elements": [
+          {
+            "type": "mrkdwn",
+            "text": ":white_check_mark: Planning | :white_check_mark: Writing | :white_check_mark: Reviewing — All checks passed"
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "elements": [
+          {
+            "type": "button",
+            "text": {
+              "type": "plain_text",
+              "text": "Use Now",
+              "emoji": true
+            },
+            "style": "primary",
+            "action_id": "use_skill",
+            "value": "influence-tracker"
+          },
+          {
+            "type": "button",
+            "text": {
+              "type": "plain_text",
+              "text": "Edit Skill",
+              "emoji": true
+            },
+            "action_id": "edit_skill",
+            "value": "influence-tracker"
+          },
+          {
+            "type": "button",
+            "text": {
+              "type": "plain_text",
+              "text": "View Full SKILL.md",
+              "emoji": true
+            },
+            "action_id": "view_skill_md",
+            "value": "influence-tracker"
+          }
+        ]
+      }
+    ]
+  }
+]

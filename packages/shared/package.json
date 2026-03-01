@@ -1,0 +1,25 @@
+{
+  "name": "@skill-issue/shared",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shared types and schemas for skill-issue",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "zod": "^4.3.6"
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "blocks": [
+    {
+      "type": "header",
+      "text": {
+        "type": "plain_text",
+        "text": "Performance Report: February 2026",
+        "emoji": true
+      }
+    },
+    {
+      "type": "section",
+      "fields": [
+        {
+          "type": "mrkdwn",
+          "text": "*Open Rate:*\n42.3% (:arrow_up: +2.1%)"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*Click-Through Rate:*\n8.7% (:arrow_down: -0.3%)"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*Subscribers:*\n7.2M (:arrow_up: +45K)"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*Revenue:*\n$1.24M (:arrow_up: +12%)"
+        }
+      ]
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "*Trend Summary*\n:arrow_up: Open rates continue a 3-month upward trend, now at highest point since Q3 2025\n:arrow_down: CTR dipped slightly, driven by lower engagement on weekend editions\n:arrow_up: Subscriber growth accelerated — 45K net new vs. 32K last month\n:arrow_up: Revenue up 12% MoM driven by premium tier sponsor upgrades"
+      }
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "*:warning: Anomalies Detected*\n:red_circle: *High Severity:* Weekend edition open rate dropped 18% on Feb 15-16 (possible deliverability issue)\n:large_yellow_circle: *Medium Severity:* TLDR AI subscriber churn spiked 2.3x on Feb 20 (investigate unsubscribe flow)"
+      }
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "*Top Performing Editions*\n1. _TLDR Tech #1247_ — 48.1% open rate, 11.2% CTR (Feb 12)\n2. _TLDR AI #892_ — 46.7% open rate, 10.8% CTR (Feb 18)\n3. _TLDR Tech #1251_ — 45.3% open rate, 9.9% CTR (Feb 24)\n4. _TLDR Founders #415_ — 44.8% open rate, 9.6% CTR (Feb 10)\n5. _TLDR Tech #1249_ — 43.9% open rate, 9.1% CTR (Feb 19)"
+      }
+    },
+    {
+      "type": "context",
+      "elements": [
+        {
+          "type": "mrkdwn",
+          "text": ":calendar: Report period: Feb 1 - Feb 27, 2026 | Generated: Feb 27, 2026 at 2:15 PM EST"
+        }
+      ]
+    },
+    {
+      "type": "actions",
+      "elements": [
+        {
+          "type": "button",
+          "text": {
+            "type": "plain_text",
+            "text": "Export Full Report",
+            "emoji": true
+          },
+          "style": "primary",
+          "action_id": "export_report",
+          "value": "report_feb_2026"
+        },
+        {
+          "type": "button",
+          "text": {
+            "type": "plain_text",
+            "text": "Compare Periods",
+            "emoji": true
+          },
+          "action_id": "compare_periods",
+          "value": "report_feb_2026"
+        },
+        {
+          "type": "button",
+          "text": {
+            "type": "plain_text",
+            "text": "Investigate Anomalies",
+            "emoji": true
+          },
+          "action_id": "investigate_anomalies",
+          "value": "report_feb_2026"
+        }
+      ]
+    }
+  ]
+}

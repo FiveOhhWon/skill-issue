@@ -1,0 +1,191 @@
+[
+  {
+    "_step": "Initial Message",
+    "_description": "Posted when user triggers a multi-step pipeline. This message ts is saved for subsequent chat.update calls.",
+    "blocks": [
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": ":rocket: *Starting content pipeline...*"
+        }
+      },
+      {
+        "type": "context",
+        "elements": [
+          {
+            "type": "mrkdwn",
+            "text": ":white_circle: Research topics | :white_circle: Analyze competitors | :white_circle: Generate brief"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_step": "Update 1: Researching (chat.update replaces initial message)",
+    "_description": "First skill in the pipeline is active. Progress bar shows 1/3.",
+    "blocks": [
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": ":mag: *Researching topics...* (1/3)"
+        }
+      },
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": ":black_large_square::white_large_square::white_large_square:"
+        }
+      },
+      {
+        "type": "context",
+        "elements": [
+          {
+            "type": "mrkdwn",
+            "text": ":hourglass_flowing_sand: Research topics | :white_circle: Analyze competitors | :white_circle: Generate brief"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_step": "Update 2: Analyzing (chat.update replaces Update 1)",
+    "_description": "Second skill in the pipeline is active. Progress bar shows 2/3.",
+    "blocks": [
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": ":chart_with_upwards_trend: *Analyzing competitors...* (2/3)"
+        }
+      },
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": ":black_large_square::black_large_square::white_large_square:"
+        }
+      },
+      {
+        "type": "context",
+        "elements": [
+          {
+            "type": "mrkdwn",
+            "text": ":white_check_mark: Research topics | :hourglass_flowing_sand: Analyze competitors | :white_circle: Generate brief"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_step": "Update 3: Generating (chat.update replaces Update 2)",
+    "_description": "Third and final skill in the pipeline is active. Progress bar shows 3/3.",
+    "blocks": [
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": ":memo: *Generating brief...* (3/3)"
+        }
+      },
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": ":black_large_square::black_large_square::black_large_square:"
+        }
+      },
+      {
+        "type": "context",
+        "elements": [
+          {
+            "type": "mrkdwn",
+            "text": ":white_check_mark: Research topics | :white_check_mark: Analyze competitors | :hourglass_flowing_sand: Generate brief"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_step": "Final: Complete Output (chat.update replaces Update 3 with full results)",
+    "_description": "The progress message is replaced entirely with the complete pipeline output. This example shows the content brief result. In production, this would be the full Content Research Results block layout from slack-ux-content-research.json followed by the brief.",
+    "blocks": [
+      {
+        "type": "header",
+        "text": {
+          "type": "plain_text",
+          "text": "Content Brief: TLDR Tech #1253",
+          "emoji": true
+        }
+      },
+      {
+        "type": "section",
+        "fields": [
+          {
+            "type": "mrkdwn",
+            "text": "*Topics Researched:* 12"
+          },
+          {
+            "type": "mrkdwn",
+            "text": "*Competitors Analyzed:* 5"
+          },
+          {
+            "type": "mrkdwn",
+            "text": "*Stories Selected:* 8"
+          },
+          {
+            "type": "mrkdwn",
+            "text": "*Pipeline Time:* 47s"
+          }
+        ]
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": "*Top Stories*\n\n1. *OpenAI Launches GPT-5 with Real-Time Reasoning* — _Lead story. None of the 5 competitors have covered the inference-time reasoning angle yet. High urgency._\n\n2. *YC W26 Batch Signals AI Infrastructure Boom* — _Strong TLDR angle: 68% AI focus is highest ever. Competitor Morning Brew covered but missed the infra-vs-app breakdown._\n\n3. *Rust Foundation Announces 2026 Roadmap* — _Developer audience hook. No competitor coverage. Good for engagement._"
+        }
+      },
+      {
+        "type": "context",
+        "elements": [
+          {
+            "type": "mrkdwn",
+            "text": ":white_check_mark: Research | :white_check_mark: Competitor Analysis | :white_check_mark: Brief Generation — Pipeline complete"
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "elements": [
+          {
+            "type": "button",
+            "text": {
+              "type": "plain_text",
+              "text": "View Full Brief",
+              "emoji": true
+            },
+            "style": "primary",
+            "action_id": "view_full_brief",
+            "value": "brief_1253"
+          },
+          {
+            "type": "button",
+            "text": {
+              "type": "plain_text",
+              "text": "Regenerate",
+              "emoji": true
+            },
+            "action_id": "regenerate_brief",
+            "value": "brief_1253"
+          }
+        ]
+      }
+    ]
+  }
+]

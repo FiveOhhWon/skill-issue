@@ -1,0 +1,43 @@
+_metadata:
+  major_version: 1
+display_information:
+  name: Skill Issue Newsletter Ops
+  description: Newsletter operations assistant for research, proposals, and reporting
+  background_color: "#1F2937"
+features:
+  bot_user:
+    display_name: Newsletter Ops Bot
+    always_online: false
+  app_home:
+    home_tab_enabled: false
+    messages_tab_enabled: true
+    messages_tab_read_only_enabled: false
+  assistant_view:
+    assistant_description: Newsletter operations copilot for research, briefs, sponsor proposals, and performance reporting.
+    suggested_prompts:
+      - title: Run content pipeline
+        message: Run a content pipeline for this week and suggest top newsletter brief ideas.
+      - title: Generate sponsor proposal
+        message: Create a sponsor proposal using the latest newsletter analytics.
+      - title: Build performance report
+        message: Build a weekly performance report with highlights and recommendations.
+      - title: Analyze competitors
+        message: Analyze competitor coverage and identify topic gaps to target.
+oauth_config:
+  scopes:
+    bot:
+      - assistant:write
+      - app_mentions:read
+      - chat:write
+      - im:history
+settings:
+  event_subscriptions:
+    bot_events:
+      - assistant_thread_started
+      - assistant_thread_context_changed
+      - app_mention
+      - message.im
+  org_deploy_enabled: false
+  socket_mode_enabled: true
+  is_hosted: false
+  token_rotation_enabled: false

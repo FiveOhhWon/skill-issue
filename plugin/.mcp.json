@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "hubspot": {
+      "command": "npx",
+      "args": ["@hubspot/mcp-server"],
+      "env": {
+        "HUBSPOT_ACCESS_TOKEN": "${HUBSPOT_ACCESS_TOKEN}"
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "/api/builder/forge/route": "app/api/builder/forge/route.js",
+  "/api/skills/list/route": "app/api/skills/list/route.js",
+  "/api/chat/run/route": "app/api/chat/run/route.js",
+  "/(dashboard)/dashboard/page": "app/(dashboard)/dashboard/page.js",
+  "/(dashboard)/skills/page": "app/(dashboard)/skills/page.js",
+  "/(dashboard)/pipelines/page": "app/(dashboard)/pipelines/page.js",
+  "/(dashboard)/builder/page": "app/(dashboard)/builder/page.js",
+  "/(dashboard)/history/page": "app/(dashboard)/history/page.js"
+}

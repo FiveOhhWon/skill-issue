@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iteration 1 - Skill Issues OS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+    <style>
+      :root {
+        --paper: #efe6d5;
+        --paper-dark: #dfd3bf;
+        --ink: #23201a;
+        --ink-soft: #4a4338;
+        --accent: #f4a320;
+        --accent-dark: #c97e0f;
+        --teal: #2e8f94;
+        --blue: #2f6fd4;
+        --mint: #5aa76d;
+        --window: #f7f1e4;
+        --window-edge: #a39986;
+        --panel: #fcf7ee;
+        --line: #b9ae9a;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Chivo", sans-serif;
+        color: var(--ink);
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 80% 20%, rgba(255, 188, 74, 0.12), transparent 36%),
+          radial-gradient(circle at 20% 70%, rgba(46, 143, 148, 0.12), transparent 32%),
+          url("./assets/wallpaper-v1-1920.png") center / cover no-repeat fixed;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.15;
+        background-image:
+          radial-gradient(circle at 2px 2px, rgba(26, 22, 17, 0.22) 1px, transparent 0);
+        background-size: 8px 8px;
+      }
+
+      .topbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 54px;
+        background: rgba(243, 236, 222, 0.94);
+        backdrop-filter: blur(4px);
+        border-bottom: 1px solid var(--window-edge);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 18px;
+        z-index: 90;
+      }
+
+      .topbar .brand {
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .brand-badge {
+        width: 22px;
+        height: 22px;
+        border: 1px solid var(--ink);
+        border-radius: 5px;
+        background: linear-gradient(135deg, var(--accent), #f8c75d);
+        transform: rotate(-6deg);
+      }
+
+      .menu {
+        display: flex;
+        gap: 18px;
+        color: var(--ink-soft);
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .status {
+        font-family: "Space Mono", monospace;
+        font-size: 12px;
+        border: 1px solid var(--ink);
+        border-radius: 8px;
+        padding: 4px 10px;
+        background: #fff8ec;
+      }
+
+      .desktop-icons {
+        position: fixed;
+        top: 74px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        z-index: 40;
+      }
+
+      .desktop-icons.left {
+        left: 18px;
+      }
+
+      .desktop-icons.right {
+        right: 18px;
+      }
+
+      .desk-icon {
+        width: 92px;
+        text-align: center;
+        color: var(--ink);
+        font-size: 12px;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+      }
+
+      .desk-icon .thumb {
+        width: 58px;
+        height: 58px;
+        margin: 0 auto 7px;
+        border: 1px solid var(--ink);
+        border-radius: 12px;
+        background: var(--paper);
+        box-shadow: 0 7px 18px rgba(18, 14, 10, 0.2);
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        animation: hoverFloat 4s ease-in-out infinite;
+      }
+
+      .desk-icon:nth-child(2n) .thumb {
+        animation-delay: -1.2s;
+      }
+
+      .desk-icon:nth-child(3n) .thumb {
+        animation-delay: -2.2s;
+      }
+
+      .desk-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .workspace {
+        position: relative;
+        padding: 94px 140px 40px;
+        display: grid;
+        grid-template-columns: minmax(620px, 1fr) minmax(360px, 430px);
+        gap: 26px;
+        max-width: 1560px;
+        margin: 0 auto;
+      }
+
+      .window {
+        border: 1px solid var(--window-edge);
+        border-radius: 10px;
+        background: var(--window);
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.85) inset,
+          0 24px 35px rgba(28, 22, 14, 0.24);
+        overflow: hidden;
+      }
+
+      .window.hero {
+        min-height: 680px;
+      }
+
+      .window.chat {
+        min-height: 680px;
+        animation: riseIn 700ms ease-out;
+      }
+
+      .titlebar {
+        height: 42px;
+        border-bottom: 1px solid var(--line);
+        background: linear-gradient(#efe8d9, #e7decd);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 12px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .controls {
+        display: flex;
+        gap: 7px;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border: 1px solid var(--ink);
+        border-radius: 3px;
+        background: #f8f3e8;
+      }
+
+      .app-body {
+        padding: 18px;
+      }
+
+      .hero-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .hero-header h1 {
+        margin: 0;
+        font-size: 34px;
+        line-height: 1.05;
+        font-weight: 600;
+      }
+
+      .hero-header p {
+        margin: 10px 0 0;
+        color: var(--ink-soft);
+        max-width: 620px;
+      }
+
+      .cta {
+        background: linear-gradient(180deg, #f7b63f, #e49210);
+        border: 1px solid var(--ink);
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-weight: 900;
+        font-size: 14px;
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.24);
+      }
+
+      .kpis {
+        margin-top: 18px;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .kpi {
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: var(--panel);
+        padding: 10px;
+      }
+
+      .kpi .label {
+        font-size: 11px;
+        color: var(--ink-soft);
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .kpi .value {
+        font-size: 21px;
+        font-weight: 900;
+      }
+
+      .kpi .delta {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        margin-top: 4px;
+      }
+
+      .grid {
+        margin-top: 14px;
+        display: grid;
+        grid-template-columns: 1.45fr 1fr;
+        gap: 12px;
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--panel);
+        overflow: hidden;
+      }
+
+      .panel .hd {
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--line);
+        font-weight: 700;
+        font-size: 13px;
+      }
+
+      .panel .bd {
+        padding: 12px;
+      }
+
+      .timeline {
+        display: grid;
+        gap: 8px;
+      }
+
+      .item {
+        display: grid;
+        grid-template-columns: 28px 1fr auto;
+        gap: 10px;
+        align-items: center;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        padding: 8px;
+        background: #fff9ee;
+      }
+
+      .badge {
+        width: 20px;
+        height: 20px;
+        border-radius: 6px;
+        border: 1px solid var(--ink);
+      }
+
+      .badge.teal { background: var(--teal); }
+      .badge.blue { background: var(--blue); }
+      .badge.green { background: var(--mint); }
+
+      .item .meta {
+        font-size: 12px;
+        color: var(--ink-soft);
+      }
+
+      .mini-chart {
+        height: 184px;
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 8px;
+        align-items: end;
+      }
+
+      .bar {
+        border: 1px solid var(--ink);
+        border-radius: 8px 8px 4px 4px;
+        background: linear-gradient(180deg, #6ca4ef, #345fbe);
+      }
+
+      .queue {
+        margin-top: 12px;
+        display: grid;
+        gap: 8px;
+      }
+
+      .task {
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: #fff7e8;
+        padding: 10px;
+      }
+
+      .task-head {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .progress {
+        height: 8px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        overflow: hidden;
+        background: #f4ecdc;
+      }
+
+      .progress span {
+        display: block;
+        height: 100%;
+        background: linear-gradient(90deg, #ffbc5a, #eb8f1a);
+      }
+
+      .chat-wrap {
+        display: flex;
+        flex-direction: column;
+        height: calc(100% - 42px);
+      }
+
+      .messages {
+        padding: 16px;
+        flex: 1;
+        overflow: auto;
+        display: grid;
+        gap: 10px;
+        background:
+          radial-gradient(circle at 20% 10%, rgba(255, 186, 90, 0.15), transparent 24%),
+          #f8f2e4;
+      }
+
+      .msg {
+        max-width: 88%;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+
+      .msg.user {
+        margin-left: auto;
+        background: #ffe4b9;
+        border-color: #d89a38;
+      }
+
+      .msg.assistant {
+        margin-right: auto;
+        background: #fff;
+      }
+
+      .msg .m-title {
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 0.05em;
+        margin-bottom: 4px;
+        color: var(--ink-soft);
+      }
+
+      .msg ul {
+        margin: 8px 0 0;
+        padding-left: 18px;
+      }
+
+      .composer {
+        border-top: 1px solid var(--line);
+        padding: 12px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px;
+        background: #efe5d3;
+      }
+
+      .composer input {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: #fffaf2;
+        padding: 10px 12px;
+        font-family: inherit;
+        font-size: 14px;
+      }
+
+      .send {
+        border: 1px solid var(--ink);
+        border-radius: 9px;
+        font-weight: 800;
+        padding: 0 14px;
+        background: linear-gradient(180deg, #7cc2c9, #2e8f94);
+        color: white;
+      }
+
+      .streaming {
+        display: inline-block;
+        overflow: hidden;
+        border-right: 1px solid #333;
+        white-space: nowrap;
+        animation:
+          typeLine 2.4s steps(38, end),
+          blink 900ms step-end infinite;
+      }
+
+      @keyframes hoverFloat {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-4px); }
+      }
+
+      @keyframes riseIn {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+
+      @keyframes typeLine {
+        from { width: 0; }
+        to { width: 100%; }
+      }
+
+      @keyframes blink {
+        50% { border-color: transparent; }
+      }
+
+      @media (max-width: 1280px) {
+        .workspace {
+          padding: 84px 26px 24px;
+          grid-template-columns: 1fr;
+        }
+        .desktop-icons {
+          display: none;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .hero-header {
+          flex-direction: column;
+        }
+        .kpis {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand"><span class="brand-badge"></span>Skill Issues OS</div>
+      <nav class="menu">
+        <span>Product OS</span>
+        <span>Pipelines</span>
+        <span>Assets</span>
+        <span>Community</span>
+      </nav>
+      <div class="status">WORKSPACE: LIVE</div>
+    </header>
+
+    <aside class="desktop-icons left">
+      <div class="desk-icon">
+        <div class="thumb"><img src="./assets/icon-inbox-128.png" alt="Inbox" /></div>
+        Inbox
+      </div>
+      <div class="desk-icon">
+        <div class="thumb"><img src="./assets/icon-content-128.png" alt="Content Studio" /></div>
+        Content Studio
+      </div>
+      <div class="desk-icon">
+        <div class="thumb"><img src="./assets/icon-research-128.png" alt="Research" /></div>
+        Research
+      </div>
+      <div class="desk-icon">
+        <div class="thumb"><img src="./assets/icon-sponsors-128.png" alt="Sponsors" /></div>
+        Sponsors
+      </div>
+    </aside>
+
+    <aside class="desktop-icons right">
+      <div class="desk-icon">
+        <div class="thumb"><img src="./assets/icon-analytics-128.png" alt="Analytics" /></div>
+        Analytics
+      </div>
+      <div class="desk-icon">
+        <div class="thumb"><img src="./assets/icon-automations-128.png" alt="Automations" /></div>
+        Automations
+      </div>
+      <div class="desk-icon">
+        <div class="thumb"><img src="./assets/icon-inbox-128.png" alt="History" /></div>
+        History
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <section class="window hero">
+        <div class="titlebar">
+          <div>ops-dashboard.mdx</div>
+          <div class="controls"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
+
+        <div class="app-body">
+          <div class="hero-header">
+            <div>
+              <h1>Newsletter Command Deck</h1>
+              <p>
+                Run end-to-end content ops from one place: research, sponsor matching,
+                brief generation, and publishing flow with visible pipeline states.
+              </p>
+            </div>
+            <button class="cta">Launch Morning Run</button>
+          </div>
+
+          <div class="kpis">
+            <div class="kpi">
+              <div class="label">Open Rate</div>
+              <div class="value">42.8%</div>
+              <div class="delta">+3.2% WoW</div>
+            </div>
+            <div class="kpi">
+              <div class="label">Sponsors</div>
+              <div class="value">7 Active</div>
+              <div class="delta">2 pending</div>
+            </div>
+            <div class="kpi">
+              <div class="label">Drafts</div>
+              <div class="value">14</div>
+              <div class="delta">5 in review</div>
+            </div>
+            <div class="kpi">
+              <div class="label">Automations</div>
+              <div class="value">12</div>
+              <div class="delta">all green</div>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="panel">
+              <div class="hd">Pipeline Timeline</div>
+              <div class="bd timeline">
+                <div class="item">
+                  <div class="badge teal"></div>
+                  <div>
+                    Content research batch #382
+                    <div class="meta">seed topics + competitor scan</div>
+                  </div>
+                  <strong>Running</strong>
+                </div>
+                <div class="item">
+                  <div class="badge blue"></div>
+                  <div>
+                    Sponsor proposal generator
+                    <div class="meta">3 account targets queued</div>
+                  </div>
+                  <strong>Queued</strong>
+                </div>
+                <div class="item">
+                  <div class="badge green"></div>
+                  <div>
+                    Performance report (weekly)
+                    <div class="meta">delivered to #newsletter-ops</div>
+                  </div>
+                  <strong>Done</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="hd">Audience Trend</div>
+              <div class="bd">
+                <div class="mini-chart">
+                  <div class="bar" style="height: 42%"></div>
+                  <div class="bar" style="height: 55%"></div>
+                  <div class="bar" style="height: 38%"></div>
+                  <div class="bar" style="height: 69%"></div>
+                  <div class="bar" style="height: 78%"></div>
+                  <div class="bar" style="height: 64%"></div>
+                  <div class="bar" style="height: 86%"></div>
+                  <div class="bar" style="height: 81%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="queue">
+            <div class="task">
+              <div class="task-head">
+                <span>Weekly AI Infra Brief</span>
+                <span>72%</span>
+              </div>
+              <div class="progress"><span style="width: 72%"></span></div>
+            </div>
+            <div class="task">
+              <div class="task-head">
+                <span>Q2 Sponsor Prospecting</span>
+                <span>45%</span>
+              </div>
+              <div class="progress"><span style="width: 45%"></span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="window chat">
+        <div class="titlebar">
+          <div>ops-chat.ai</div>
+          <div class="controls"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
+        <div class="chat-wrap">
+          <div class="messages">
+            <div class="msg user">
+              <div class="m-title">YOU</div>
+              Generate a sponsor-ready summary from this week's top three stories.
+            </div>
+            <div class="msg assistant">
+              <div class="m-title">OPS AGENT</div>
+              <span class="streaming">Streaming draft now...</span>
+              <ul>
+                <li><strong>Theme:</strong> AI inference cost compression</li>
+                <li><strong>Angle:</strong> practical workflow impact</li>
+                <li><strong>CTA:</strong> benchmark kit download</li>
+              </ul>
+            </div>
+          </div>
+          <div class="composer">
+            <input value="Ask for a skill, pipeline, or plain answer..." readonly />
+            <button class="send">Send</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "@skill-issue/skillkit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Skillkit CLI for generating SKILL.md files",
+  "type": "module",
+  "main": "./dist/index.js",
+  "bin": {
+    "skillkit": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.2.62",
+    "@skill-issue/shared": "*",
+    "commander": "^12.1.0",
+    "yaml": "^2.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.2",
+    "tsup": "^8.2.0",
+    "typescript": "^5.5.0"
+  }
+}

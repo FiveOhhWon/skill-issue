@@ -1,0 +1,1 @@
+self.__NEXT_FONT_MANIFEST='{"pages":{},"app":{"/Users/levi/Documents/GitHub/skill-issue/apps/web/src/app/layout":["static/media/f04c3881ee3d9785-s.p.woff2","static/media/fc727f226c737876-s.p.woff2","static/media/806de4d605d3ad01-s.p.woff2"]},"appUsingSizeAdjust":true,"pagesUsingSizeAdjust":false}';

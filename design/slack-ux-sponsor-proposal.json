@@ -1,0 +1,181 @@
+{
+  "blocks": [
+    {
+      "type": "header",
+      "text": {
+        "type": "plain_text",
+        "text": "Sponsor Proposal: Datadog",
+        "emoji": true
+      }
+    },
+    {
+      "type": "section",
+      "fields": [
+        {
+          "type": "mrkdwn",
+          "text": "*Audience Fit:* 87%"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*Recommended CPM:* $42"
+        }
+      ]
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "*Executive Summary*\nDatadog's developer-focused monitoring platform aligns strongly with TLDR's technical audience. With 7.2M subscribers skewing 78% toward engineering and DevOps roles, the audience overlap is among the highest in our network. Historical campaigns from comparable sponsors show 2.1x above-average CTR for infrastructure tooling."
+      }
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "*Sponsorship Tiers*"
+      }
+    },
+    {
+      "type": "section",
+      "fields": [
+        {
+          "type": "mrkdwn",
+          "text": ":white_circle: *Standard Tier*"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*$18,500/week*"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "Single newsletter placement"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "Est. 150K impressions"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "fields": [
+        {
+          "type": "mrkdwn",
+          "text": ":large_blue_circle: *Premium Tier*"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*$42,000/week*"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "Multi-newsletter + dedicated send"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "Est. 500K impressions"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "fields": [
+        {
+          "type": "mrkdwn",
+          "text": ":star: *Exclusive Tier*"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*$85,000/week*"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "Full network takeover"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "Est. 1.2M impressions"
+        }
+      ]
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "*Key Metrics*"
+      },
+      "fields": [
+        {
+          "type": "mrkdwn",
+          "text": "*Open Rate:*\n42.3%"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*Click-Through Rate:*\n8.7%"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*Total Subscribers:*\n7.2M"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*Avg. Sponsor CTR:*\n3.2%"
+        }
+      ]
+    },
+    {
+      "type": "context",
+      "elements": [
+        {
+          "type": "mrkdwn",
+          "text": ":bar_chart: Generated from 90-day analytics data | Last updated: Feb 27, 2026"
+        }
+      ]
+    },
+    {
+      "type": "actions",
+      "elements": [
+        {
+          "type": "button",
+          "text": {
+            "type": "plain_text",
+            "text": "Log to HubSpot",
+            "emoji": true
+          },
+          "style": "primary",
+          "action_id": "log_to_hubspot",
+          "value": "proposal_datadog_001"
+        },
+        {
+          "type": "button",
+          "text": {
+            "type": "plain_text",
+            "text": "Edit Proposal",
+            "emoji": true
+          },
+          "action_id": "edit_proposal",
+          "value": "proposal_datadog_001"
+        },
+        {
+          "type": "button",
+          "text": {
+            "type": "plain_text",
+            "text": "Send Draft",
+            "emoji": true
+          },
+          "action_id": "send_draft",
+          "value": "proposal_datadog_001"
+        }
+      ]
+    }
+  ]
+}

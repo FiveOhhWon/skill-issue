@@ -1,0 +1,68 @@
+{
+  "hooks": {
+    "skill:pre-execute": {
+      "description": "Runs before a skill is executed. Receives skill name and input context.",
+      "handler": "log",
+      "config": {
+        "level": "info",
+        "message": "Starting skill: {{skill_name}}"
+      }
+    },
+    "skill:post-execute": {
+      "description": "Runs after a skill completes. Receives skill name, output, and duration.",
+      "handler": "log",
+      "config": {
+        "level": "info",
+        "message": "Completed skill: {{skill_name}} in {{duration_ms}}ms"
+      }
+    },
+    "skill:error": {
+      "description": "Runs when a skill execution fails. Receives skill name and error details.",
+      "handler": "log",
+      "config": {
+        "level": "error",
+        "message": "Skill failed: {{skill_name}} — {{error_message}}"
+      }
+    },
+    "pipeline:start": {
+      "description": "Runs when a multi-step pipeline begins. Receives pipeline name and step count.",
+      "handler": "log",
+      "config": {
+        "level": "info",
+        "message": "Pipeline started: {{pipeline_name}} ({{step_count}} steps)"
+      }
+    },
+    "pipeline:step-complete": {
+      "description": "Runs when a pipeline step completes. Receives pipeline name, step index, and step name.",
+      "handler": "log",
+      "config": {
+        "level": "info",
+        "message": "Pipeline {{pipeline_name}}: step {{step_index}}/{{step_count}} ({{step_name}}) complete"
+      }
+    },
+    "pipeline:complete": {
+      "description": "Runs when all pipeline steps finish. Receives pipeline name and total duration.",
+      "handler": "log",
+      "config": {
+        "level": "info",
+        "message": "Pipeline complete: {{pipeline_name}} in {{total_duration_ms}}ms"
+      }
+    },
+    "pipeline:error": {
+      "description": "Runs when a pipeline fails at any step. Receives pipeline name, failed step, and error.",
+      "handler": "log",
+      "config": {
+        "level": "error",
+        "message": "Pipeline failed: {{pipeline_name}} at step {{step_name}} — {{error_message}}"
+      }
+    },
+    "hubspot:logged": {
+      "description": "Runs after a successful HubSpot CRM write (deal created, note attached).",
+      "handler": "log",
+      "config": {
+        "level": "info",
+        "message": "HubSpot: {{action}} for {{entity_name}} (ID: {{entity_id}})"
+      }
+    }
+  }
+}
