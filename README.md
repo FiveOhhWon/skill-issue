@@ -3,6 +3,8 @@
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-purple)](https://docs.anthropic.com/claude-code)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 
+<video src="https://pub-d728542fdfab417989bb13f2ffa8bc51.r2.dev/video/tldr.mp4" controls width="100%"></video>
+
 # skill-issue
 
 **Composable AI skills for newsletter operations** -- content research, competitor analysis, sponsor proposals, performance reporting, and more. Built as an [agentskills.io](https://agentskills.io) plugin for Claude Code with a Slack bot and CLI interface.
